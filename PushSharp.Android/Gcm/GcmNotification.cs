@@ -16,13 +16,15 @@ namespace PushSharp.Android
 			var result = new GcmNotification();
 			result.Tag = response.Message.Tag;
 			result.RegistrationIds.Add(response.Message.RegistrationIds[resultIndex]);
+		  result.MessageId = response.Results[resultIndex].MessageId;
 			result.CollapseKey = response.Message.CollapseKey;
 			result.JsonData = response.Message.JsonData;
 			result.DelayWhileIdle = response.Message.DelayWhileIdle;
 			return result;
 		}
 
-		public static GcmNotification ForSingleRegistrationId(GcmNotification msg, string registrationId)
+
+	  public static GcmNotification ForSingleRegistrationId(GcmNotification msg, string registrationId)
 		{
 			var result = new GcmNotification();
 			result.Tag = msg.Tag;
@@ -58,6 +60,11 @@ namespace PushSharp.Android
 			get;
 			set;
 		}
+
+    /// <summary>
+    /// message_id sent from gcm server
+    /// </summary>
+    public string MessageId { get; set; }
 
 		/// <summary>
 		/// JSON Payload to be sent in the message
