@@ -14,7 +14,7 @@ namespace PushSharp.Android
 			this.NumberOfSuccesses = 0;
 			this.NumberOfFailures = 0;
 			this.NumberOfCanonicalIds = 0;
-			this.Message = null;
+      this.Message = null;
 			this.Results = new List<GcmMessageResult>();
 			this.ResponseCode = GcmMessageTransportResponseCode.Ok;
 		}
@@ -31,7 +31,7 @@ namespace PushSharp.Android
 		[JsonProperty("canonical_ids")]
 		public long NumberOfCanonicalIds { get; set; }
 
-		[JsonIgnore]
+    [JsonIgnore]
 		public GcmNotification Message { get; set; }
 
 		[JsonProperty("results")]

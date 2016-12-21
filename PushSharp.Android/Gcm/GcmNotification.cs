@@ -6,6 +6,8 @@ using System.Text;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using PushSharp.Core;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace PushSharp.Android
 {
@@ -20,7 +22,8 @@ namespace PushSharp.Android
 			result.CollapseKey = response.Message.CollapseKey;
 			result.JsonData = response.Message.JsonData;
 			result.DelayWhileIdle = response.Message.DelayWhileIdle;
-			return result;
+      result.Priority = response.Message.Priority;
+      return result;
 		}
 
 
@@ -32,7 +35,8 @@ namespace PushSharp.Android
 			result.CollapseKey = msg.CollapseKey;
 			result.JsonData = msg.JsonData;
 			result.DelayWhileIdle = msg.DelayWhileIdle;
-			return result;
+      result.Priority = msg.Priority;
+      return result;
 		}
 
 		public GcmNotification()
@@ -112,8 +116,14 @@ namespace PushSharp.Android
 		/// </summary>
 		public string TargetPackageName { get; set; }
 
+    /// <summary>
+    /// Corresponds to iOS APNS priorities (Normal is 5 and high is 10).  Default is Normal.
+    /// </summary>
+    /// <value>The priority.</value>
+    [JsonProperty("priority"), JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public GcmNotificationPriority? Priority { get; set; }
 
-		internal string GetJson()
+    internal string GetJson()
 		{
 			var json = new JObject();
 
@@ -154,4 +164,13 @@ namespace PushSharp.Android
 			return GetJson();
 		}
 	}
+
+
+  public enum GcmNotificationPriority
+  {
+    [EnumMember(Value = "normal")]
+    Normal = 5,
+    [EnumMember(Value = "high")]
+    High = 10
+  }
 }

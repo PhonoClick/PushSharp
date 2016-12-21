@@ -8,17 +8,23 @@ namespace PushSharp
 {
 	public static class GcmFluentNotification
 	{
-		public static GcmNotification ForDeviceRegistrationId(this GcmNotification n, string deviceRegistrationId)
+    public static GcmNotification WithPriority(this GcmNotification n, GcmNotificationPriority priority)
+    {
+      n.Priority = priority;
+      return n;
+    }
+
+    public static GcmNotification ForDeviceRegistrationId(this GcmNotification n, string deviceRegistrationId)
 		{
 			n.RegistrationIds.Add(deviceRegistrationId);
 			return n;
 		}
 
-        public static GcmNotification ForDeviceRegistrationId(this GcmNotification n, IEnumerable<string> deviceRegistrationIds)
-        {
-            n.RegistrationIds.AddRange(deviceRegistrationIds);
-            return n;
-        }
+    public static GcmNotification ForDeviceRegistrationId(this GcmNotification n, IEnumerable<string> deviceRegistrationIds)
+    {
+        n.RegistrationIds.AddRange(deviceRegistrationIds);
+        return n;
+    }
 
 		public static GcmNotification WithCollapseKey(this GcmNotification n, string collapseKey)
 		{
